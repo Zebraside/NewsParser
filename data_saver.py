@@ -8,7 +8,11 @@ class CsvSaver:
 
     def __init__(self, name: str, field_names):
         self.name = name
-        self.file = open(os.path.join(self.storage_folder, self.name), 'w')
+
+        if not os.path.exists(self.storage_folder):
+            os.makedirs(self.storage_folder)
+
+        self.file = open(os.path.join(self.storage_folder, self.name), 'w')  # TODO: process case when file could not be created
 
         self.writer = DictWriter(self.file, fieldnames=field_names)
         self.writer.writeheader()

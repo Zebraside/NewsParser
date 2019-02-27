@@ -1,5 +1,5 @@
+from og_parser import PageParser
 from connection import Connection
-from parser import PageParser
 from data_saver import CsvSaver
 
 import json

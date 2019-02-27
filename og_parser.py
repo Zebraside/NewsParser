@@ -4,9 +4,7 @@ from typing import List
 from lxml.html import parse
 from lxml import etree
 
-import urllib3
 from urllib3.response import HTTPResponse
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class PageParser:
