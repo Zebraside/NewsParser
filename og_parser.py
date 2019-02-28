@@ -12,7 +12,6 @@ class PageParser:
         self.tags = dict.fromkeys(tags, None)
 
     def __parse_tags(self, source):
-        # TODO: add try catch block; Process case when header doesn't have needed tags
         context = etree.iterparse(source, events=('end',), tag=["meta"], html=True)
         for _, tag in context:
             attrs = tag.attrib
@@ -30,7 +29,7 @@ class PageParser:
         return self.tags
 
     @staticmethod
-    def get_all_link(r: HTTPResponse, pattern: str = None, filter: str = ""): # TODO: add filter string to filter out link to twitter and such kind of shit
+    def get_all_link(r: HTTPResponse, pattern: str = None, filter: str = ""):
         atexit.register(lambda: r.release_conn())
         dom = parse(r).getroot()
         cls = "a"
