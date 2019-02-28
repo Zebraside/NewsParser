@@ -12,9 +12,9 @@ class CsvSaver:
         if not os.path.exists(self.storage_folder):
             os.makedirs(self.storage_folder)
 
-        self.file = open(os.path.join(self.storage_folder, self.name), 'w')  # TODO: process case when file could not be created
+        self.file = open(os.path.join(self.storage_folder, self.name), 'w', encoding='utf-8')  # TODO: process case when file could not be created
 
-        self.writer = DictWriter(self.file, fieldnames=field_names)
+        self.writer = DictWriter(self.file, fieldnames=field_names, delimiter=';', lineterminator='\n')
         self.writer.writeheader()
 
     def save(self, row: dict):

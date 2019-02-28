@@ -19,9 +19,15 @@ class Crawler:
     topic_pattern = "https://techcrunch.com/wp-json/tc/v1/magazine?page={0}&_embed=true&_envelope=true&categories={1}"
 
     def __init__(self, logfile_name: str = None):
-        self.topics = [Topic("Apps", '449557102'), Topic("Startups", "20429"), Topic("Gadgets", "449557086")]
+        self.topics = [Topic("Apps", '449557102'),
+                       Topic("Startups", "20429"),
+                       Topic("Gadgets", "449557086"),
+                       Topic("Social", "3457"),
+                       Topic("Mobile", "449557028"),
+                       Topic("Enterprise", "449557044")]
         self.connector = Connection()
         self.max_fails = 5
+        self.num_threads = 6
 
         if logfile_name:
             logging.basicConfig(filename='{0}.log'.format(logfile_name), filemode='w')
@@ -73,6 +79,9 @@ class Crawler:
 
             current_page += 1
 
-    def run(self):
-        with ThreadPoolExecutor(max_workers=min(4, len(self.topics))) as executor:
+    def __split_task(self, workers: int, task, data):
+        with ThreadPoolExecutor(self.num_threads) as executor:
             executor.map(self.content_loop, self.topics)
+
+    def run(self):
+        self.__split_task(min(self.num_threads, len(self.topics)), self.connector, self.topics)
