@@ -12,7 +12,6 @@ class PageParser:
         self.tags = dict.fromkeys(tags, None)
 
     def __parse_tags(self, source):
-        # TODO: add try catch block; Process case when header doesn't have needed tags
         context = etree.iterparse(source, events=('end',), tag=["meta"], html=True)
         for _, tag in context:
             attrs = tag.attrib
