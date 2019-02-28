@@ -29,7 +29,7 @@ class PageParser:
         return self.tags
 
     @staticmethod
-    def get_all_link(r: HTTPResponse, pattern: str = None, filter: str = ""): # TODO: add filter string to filter out link to twitter and such kind of shit
+    def get_all_link(r: HTTPResponse, pattern: str = None, filter: str = ""):
         atexit.register(lambda: r.release_conn())
         dom = parse(r).getroot()
         cls = "a"
