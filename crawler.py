@@ -44,7 +44,7 @@ class Crawler:
         if not conn:
             return None
 
-        json_response = json.loads(conn.read().decode("utf-8"))  # TODO: investigate if there could be any problems
+        json_response = json.loads(conn.read().decode("utf-8")) 
         # with encoding
 
         links = self.__get_link_from_response(json_response['body'])
